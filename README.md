@@ -8,7 +8,7 @@ This project introduces a framework that combines hierarchical urban features an
 It also incorporates high-resolution satellite and street-level imagery to enhance visual data, using feature propagation to address missing facade information. The fusion of morphological and visual features generates holistic representations for accurate building attribute prediction.
 
 <div align="center">
-<img src="figs/framework.jpg" alt="Workflow Placeholder" width="800">
+<img src="figs/framework.jpg" alt="Workflow Placeholder" width="600">
 </div>
 
 ## Package Requirements
