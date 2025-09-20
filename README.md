@@ -9,6 +9,7 @@ It also incorporates high-resolution satellite and street-level imagery to enhan
 
 <div align="center">
 <img src="figs/framework.jpg" alt="Workflow Placeholder" width="600">
+<p><em>Overview of the proposed framework integrating hierarchical urban features and cross-view visual information for building attribute prediction.</em></p>
 </div>
 
 ## Package Requirements
