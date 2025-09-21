@@ -5,6 +5,11 @@ Integrating hierarchical urban features and cross-view visual information for bu
 ## Project Description
 This project introduces a framework that combines hierarchical urban features and cross-view visual information to predict building attributes. By leveraging a heterogeneous graph, the framework integrates multi-dimensional urban elements such as buildings, streets, intersections, and urban plots to represent geospatial features comprehensively. 
 
+<div align="center">
+<img src="figs/heterognn.jpg" alt="Workflow Placeholder" width="600">
+<p><em>Illustration of the heterogeneous GraphSAGE framework for building attribute prediction.</em></p>
+</div>
+
 It also incorporates high-resolution satellite and street-level imagery to enhance visual data, using feature propagation to address missing facade information. The fusion of morphological and visual features generates holistic representations for accurate building attribute prediction.
 
 <div align="center">
