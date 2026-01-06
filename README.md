@@ -1,6 +1,6 @@
 # HeteroGNN-building-attribute-prediction
 
-Integrating hierarchical urban features and cross-view visual information for building attributes prediction.
+Heterogeneous graph neural networks for building attribute prediction from hierarchical urban features and cross-view imagery
 
 ## Project Description
 This project introduces a framework that combines hierarchical urban features and cross-view visual information to predict building attributes. By leveraging a heterogeneous graph, the framework integrates multi-dimensional urban elements such as buildings, streets, intersections, and urban plots to represent geospatial features comprehensively. 
@@ -37,7 +37,14 @@ The testing data required for this project can be found in the following locatio
 - `data/building_type`
 - `data/urban_graph/Washington.zip`
 
-Ensure these datasets are available and properly extracted before running the project.
+Ensure these datasets are available before running the project. For imagery, each image file should be named using the associated `building_id.png` format and placed in the corresponding directories：
+
+- `data/svi` — street-view imagery
+- `data/satellite` — satellite imagery
+
+### 3. Inference result
+
+The inference result in this study can be found at: [`output/result`](output/result)
 
 ## Acknowledgments
 - Contributors: Xiucheng Liang, Winston Yap, and Filip Biljecki

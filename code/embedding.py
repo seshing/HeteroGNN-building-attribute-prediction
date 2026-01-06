@@ -39,26 +39,20 @@ class DinoV3Embedder(nn.Module):
             pretrained_model_name,
             trust_remote_code=True
         )
-        
-        # Define the projection head to get the desired output dimension
+
         self.projection = nn.Linear(self.backbone.config.hidden_size, output_dimension)
 
     def forward(self, pixel_values):
         """
         The forward pass that takes preprocessed pixel values and returns embeddings.
         """
-        # 1. Get the raw outputs from the backbone
         outputs = self.backbone(pixel_values=pixel_values)
-        
-        # 2. Extract the pooled output (embedding for the [CLS] token)
         pooled_output = outputs.pooler_output
-        
-        # 3. Project to the desired dimension
         embedding = self.projection(pooled_output)
         
         return embedding
 
-def process_svi_images(task, model_name, image_path, all_bids_graph, bid2node, image_dimension, batch_size, device, output_path, city):
+def embedding_images(image_type, model_name, image_path, all_bids_graph, bid2node, image_dimension, batch_size, device, output_path, city):
     pretrained_model_name = "facebook/dinov3-vitb16-pretrain-lvd1689m"
     processor = AutoImageProcessor.from_pretrained(pretrained_model_name)
     model = DinoV3Embedder(pretrained_model_name, image_dimension)
@@ -66,9 +60,9 @@ def process_svi_images(task, model_name, image_path, all_bids_graph, bid2node, i
     model = model.to(device).eval()
     
     available = [bid for bid in all_bids_graph if os.path.isfile(os.path.join(image_path, f"{bid}.png"))]
-    print(f"Found {len(available)} available SVI images for {task}.")
+    print(f"Found {len(available)} available images for {image_type}.")
 
-    cache_file = f"{city}_{task}_{image_dimension}_{model_name}_{len(all_bids_graph)}_{len(available)}.pt"
+    cache_file = f"{city}_{image_type}_{image_dimension}_{model_name}_{len(all_bids_graph)}_{len(available)}.pt"
     cache_path = os.path.join(output_path, cache_file)
 
     ds = ImageDataset(root_dir=image_path, bids=available, transform=transform)
@@ -80,10 +74,10 @@ def process_svi_images(task, model_name, image_path, all_bids_graph, bid2node, i
         image_feat = torch.load(cache_path, map_location=device)
         print(f"Cache file loaded: {cache_file}")
     else:
-        print(f"Cache file not found. Proceeding with embedding {task}...")
+        print(f"Cache file not found. Proceeding with embedding {image_type}...")
         image_feat = torch.full((len(all_bids_graph), image_dimension), float('nan'), device=device)
         with torch.no_grad():
-            for imgs, bids in tqdm(image_loader, desc="Embedding SVI"):
+            for imgs, bids in tqdm(image_loader, desc=f"Embedding {image_type}"):
                 imgs = imgs.to(device)
                 try:
                     embs = model(imgs)
