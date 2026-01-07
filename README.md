@@ -44,7 +44,7 @@ Ensure these datasets are available before running the project. For imagery, eac
 
 ### 3. Inference result
 
-The inference result in this study can be found at: [`output/result`](output/results)
+The inference result in this study can be found at: [`output/results`](output/results)
 
 ## Acknowledgments
 - Contributors: Xiucheng Liang, Winston Yap, and Filip Biljecki
