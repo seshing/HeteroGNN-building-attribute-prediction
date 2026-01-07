@@ -45,17 +45,19 @@ def to_pyg_graph(geo_store, edge_store, target_col='building', target_value=[]):
 class HeteroSAGEEmbed(torch.nn.Module):
     def __init__(self, hidden_channels, out_channels):
         super().__init__()
+        self.leak = 0.2
+
         self.conv1 = HeteroConv({
             ('intersection', 'to', 'street'): SAGEConv((-1, -1), hidden_channels),
-            ('street', 'to', 'intersection'): SAGEConv((-1, -1), hidden_channels),  # reverse
+            ('street', 'to', 'intersection'): SAGEConv((-1, -1), hidden_channels),
             ('plot', 'to', 'building'): SAGEConv((-1, -1), hidden_channels),
-            ('building', 'to', 'plot'): SAGEConv((-1, -1), hidden_channels),  # reverse
+            ('building', 'to', 'plot'): SAGEConv((-1, -1), hidden_channels),
             ('plot', 'to', 'plot'): SAGEConv((-1, -1), hidden_channels),
             ('building', 'to', 'building'): SAGEConv((-1, -1), hidden_channels),
             ('street', 'to', 'plot'): SAGEConv((-1, -1), hidden_channels), 
-            ('plot', 'to', 'street'): SAGEConv((-1, -1), hidden_channels),   # reverse
+            ('plot', 'to', 'street'): SAGEConv((-1, -1), hidden_channels),
             ('street', 'to', 'building'): SAGEConv((-1, -1), hidden_channels),
-            ('building', 'to', 'street'): SAGEConv((-1, -1), hidden_channels),     # reverse
+            ('building', 'to', 'street'): SAGEConv((-1, -1), hidden_channels),
         }, aggr='mean')
         
         self.conv2 = HeteroConv({
@@ -69,15 +71,17 @@ class HeteroSAGEEmbed(torch.nn.Module):
         self.fc1 = Linear(hidden_channels, out_channels)
 
     def embed(self, x_dict, edge_index_dict):
-        # exactly the same as forward, minus the final fc1
         x = self.conv1(x_dict, edge_index_dict)
-        x = {k: F.relu(v) for k,v in x.items()}
+        x = {k: F.leaky_relu(v, negative_slope=self.leak) for k, v in x.items()}
 
         x = self.conv2(x, edge_index_dict)
-        x = {k: F.relu(v) for k,v in x.items()}
+        x = {k: F.leaky_relu(v, negative_slope=self.leak) for k, v in x.items()}
 
-        return x['building']   # <-- raw hidden features, before fc1
+        return x['building']  # Returns [N_building, hidden_channels]
 
     def forward(self, x_dict, edge_index_dict):
+        """
+        Standard forward pass for training.
+        """
         emb = self.embed(x_dict, edge_index_dict)
         return self.fc1(emb)
