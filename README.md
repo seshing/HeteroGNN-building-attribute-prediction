@@ -1,6 +1,6 @@
 # HeteroGNN-building-attribute-prediction
 
-Implementation and data for the paper: "**Heterogeneous graph neural networks for building attribute prediction from hierarchical urban features and cross-view imagery**" Published in the *ISPRS Journal of Photogrammetry and Remote Sensing*
+Implementation and data for the paper: "**Heterogeneous graph neural networks for building attribute prediction from hierarchical urban features and cross-view imagery**" Published in the *ISPRS Journal of Photogrammetry and Remote Sensing*. 
 [![DOI](https://img.shields.io/badge/DOI-10.1016%2Fj.isprsjprs.2026.02.016-blue)](https://doi.org/10.1016/j.isprsjprs.2026.02.016)
 
 ## Project Description
