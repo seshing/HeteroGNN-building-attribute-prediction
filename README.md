@@ -1,6 +1,7 @@
 # HeteroGNN-building-attribute-prediction
 
-Heterogeneous graph neural networks for building attribute prediction from hierarchical urban features and cross-view imagery
+Implementation and data for the paper: "**Heterogeneous graph neural networks for building attribute prediction from hierarchical urban features and cross-view imagery**" Published in the *ISPRS Journal of Photogrammetry and Remote Sensing*
+[![DOI](https://img.shields.io/badge/DOI-10.1016%2Fj.isprsjprs.2026.02.016-blue)](https://doi.org/10.1016/j.isprsjprs.2026.02.016)
 
 ## Project Description
 This project introduces a framework that combines hierarchical urban features and cross-view visual information to predict building attributes. By leveraging a heterogeneous graph, the framework integrates multi-dimensional urban elements such as buildings, streets, intersections, and urban plots to represent geospatial features comprehensively. 
@@ -45,6 +46,23 @@ Ensure these datasets are available before running the project. For imagery, eac
 ### 3. Inference result
 
 The inference result in this study can be found at: [`output/results`](output/results)
+
+## Citation
+If you find our work helpful, please cite our paper.
+
+```bibtex
+@article{liang2026heterognn,
+  title = {Heterogeneous Graph Neural Networks for Building Attribute Prediction from Hierarchical Urban Features and Cross-View Imagery},
+  author = {Liang, Xiucheng and Yap, Winston and Biljecki, Filip},
+  year = 2026,
+  journal = {ISPRS Journal of Photogrammetry and Remote Sensing},
+  volume = {234},
+  pages = {185--204},
+  issn = {0924-2716},
+  doi = {10.1016/j.isprsjprs.2026.02.016},
+}
+
+```
 
 ## Acknowledgments
 - Contributors: Xiucheng Liang, Winston Yap, and Filip Biljecki
